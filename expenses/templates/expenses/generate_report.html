@@ -69,22 +69,23 @@
                     <!-- <div class="mb-3 w-100">
                         <label class="form-label" for="exampleInputPassword1">Image</label>
                         <img src="{{image.image.url}}" alt="" width="100%">
-                    </div> -->
+                  </div> -->
                     <!-- <input type="text" name="rndid" value="{{expense.rndid}}" maxlength="255" required id="id_rndid" hidden> -->
                     <div class="mb-3">
                         <label class="form-label" for="exampleInputPassword1">Report Name</label>
                         <input class="form-control" id="exampleInputPassword1" type="text"  name="expense_name" required>
                     </div>
-                    <!-- <div class="mb-3">
-                        <label class="form-label" for="exampleInputPassword1">Generate Filter</label>
+                    <div class="mb-3">
+                        <label class="form-label" for="exampleInputPassword1">Category</label>
                         <div class="">
                           <select class="form-select mb-3" name="filter" required>
-                            <option value="Year">Year</option>
-                            <option value="Month">Month</option>
-                            <option value="Day">Day</option>
+                            <option selected value="all">All</option>
+                            {% for i in category %}
+                            <option>{{i}}</option>
+                            {% endfor %}
                           </select>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="mb-3">
                       <label class="form-label">From:</label>
                       <input class="form-control" name="from" type="date" required>

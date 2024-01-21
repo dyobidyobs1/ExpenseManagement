@@ -552,8 +552,10 @@ def AddExpenses(request):
 
 @login_required(login_url='login')
 def Report(request):
+    catergory = ExpensesCategory.objects.all()
     if request.method == 'POST':
         report_name = request.POST.get("expense_name")
+        filter_categ = request.POST.get("filter")
         # filter_date = request.POST.get("filter")
         from_date = request.POST.get("from")
         to_date = request.POST.get("to")
@@ -562,9 +564,12 @@ def Report(request):
         print(dateobject)
         print(dateobject1)
         print(report_name)
+        
+        if filter_categ == "all":
+            uploads = Expenses.objects.filter(user=request.user, date_added__range=[from_date, to_date])
+        else:
+            uploads = Expenses.objects.filter(user=request.user, date_added__range=[from_date, to_date], category=filter_categ)
 
-
-        uploads = Expenses.objects.filter(user=request.user, date_added__range=[from_date, to_date])
 
         pdf = generate_invoice_pdf(uploads, request.user)
     
@@ -577,7 +582,7 @@ def Report(request):
         return HttpResponse(template.render(context, request))
 
     
-    context = {}
+    context = {"category": catergory}
     return render(request, "expenses/generate_report.html", context)
 
 
